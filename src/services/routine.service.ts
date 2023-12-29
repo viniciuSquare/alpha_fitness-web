@@ -10,7 +10,14 @@ export class RoutineService extends AxiosService {
   async routines() {
     return await this.get()
       .then(({ data }) =>
-        data.map((routine: Routine) => new Routine(routine.label, routine.startDate, routine.endDate, routine.deleteWhenEnded))
+        data.map((routineData: Routine) => {
+          const routine = new Routine(routineData.label, routineData.startDate, routineData.endDate, routineData.deleteWhenEnded);
+          if(routineData.id) routine.id = routineData.id
+          if(routineData.users) routine.users = routineData.users
+          if(routineData.routineWorkouts) routine.routineWorkouts = routineData.routineWorkouts
+          
+          return routine;
+        })
       )
 
     return ''
@@ -27,4 +34,11 @@ export class RoutineService extends AxiosService {
     return routines;
   }
 
+  async create(routine: Routine) {
+    return await this.post(routine.http);
+  }
+
+  async setRoutineToUsed(routineId: number, userId: number) {
+    return await this.post({routineId, userId}, 'set-to-user');
+  }
 }

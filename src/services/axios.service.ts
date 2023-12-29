@@ -5,7 +5,7 @@ export class AxiosService {
   
   constructor(private resource: string) {
     this.axios  = axios.create({
-      baseURL: `http://localhost:3001/${this.resource}`,
+      baseURL: `http://192.168.0.104:3001/${this.resource}`,
       headers: {
         "Content-type": "application/json"
       }
@@ -22,7 +22,7 @@ export class AxiosService {
     return await this.axios.get(url)
   }
   
-  async post(endpoint = '', data: any) {
+  async post(data: any, endpoint = '') {
     return this.axios.post(this.buildUrl(endpoint), data)
   }
 }

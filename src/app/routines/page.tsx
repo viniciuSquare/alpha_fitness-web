@@ -1,22 +1,17 @@
-'use client'
-import { Button } from "@/components/ui/button";
+"use client";
+import { useRoutineContext } from "@/context/routineContext";
+
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Routine } from "@/models/routine.model";
-import { RoutineService } from "@/services/routine.service";
+
+import { RoutineCard } from "./components/RoutineCard";
+import { Button } from "@/components/ui/button";
 
 export default function Routines() {
-  const [ routines, setRoutines ] = useState<Routine[]>()
-
-  useEffect(()=>{
-    const service = new RoutineService();
-    service.routines().then(routines=> setRoutines(routines))
-    
-  }, [])
+  const { routines } = useRoutineContext();
 
   return (
-    <main className="flex-col">
+    <main className="flex-col max-w-screen">
       <div className="w-full py-4">
         <div>
           <Link href="/routines/create">
@@ -24,9 +19,10 @@ export default function Routines() {
           </Link>
         </div>
       </div>
-      <div id="DailyRoutines" className="flex">
-        
-
+      <div id="DailyRoutines" className="flex flex-wrap gap-2">
+        {routines
+          ? routines.map((routine) => <RoutineCard routine={routine}/>)
+          : null}
       </div>
     </main>
   );

@@ -10,8 +10,20 @@ export class Routine {
     public deleteWhenEnded: boolean,
     public routineWorkouts?: {}[],
     public users?: User[],
+    public id?: number,
   ) { }
 
+  get http() {
+    return {
+      id: this.id,
+      label: this.label,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      deleteWhenEnded: this.deleteWhenEnded,
+      routineWorkouts: this.routineWorkouts,
+      users: this.users,
+    }
+  }
 
   static get formSchema() {
     return routineFormSchema;
@@ -26,6 +38,8 @@ const routineFormSchema = z.object({
     }),
   startDate: z.date(),
   endDate: z.date(),
-  deleteWhenEnded: z.boolean().default(false).optional(),
+  deleteWhenEnded: z.boolean().default(true),
+  type: z.enum(["DAILY","ORDER" ])
+
   // users: z.object()
 })

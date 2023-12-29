@@ -1,10 +1,12 @@
-'use client'
+"use client";
 
 import { Header } from "@/components/header";
 import { UserContextProvider } from "@/context/userContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toast, ToastProvider } from "@/components/ui/toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UserContextProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          {children}
-        </body>
-      </html>
-    </UserContextProvider>
+    <ToastProvider>
+      <UserContextProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <Header />
+            {children}
+            <Toaster/>
+          </body>
+        </html>
+      </UserContextProvider>
+    </ToastProvider>
   );
 }
