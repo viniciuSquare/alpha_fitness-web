@@ -34,7 +34,7 @@ import { CalendarIcon } from "lucide-react";
 import Link from "next/link";
 import { RoutineFormHooks, RoutineFormValues } from "./RoutineFormHooks";
 
-export function RoutineCreationForm(props: {
+export function RoutineEditionForm(props: {
   defaultValues: Partial<RoutineFormValues>;
 }) {
   const { defaultValues } = props;

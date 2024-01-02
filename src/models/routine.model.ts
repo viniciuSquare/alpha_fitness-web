@@ -13,6 +13,15 @@ export class Routine {
     public id?: number,
   ) { }
 
+  static constructFromResponse(routineData: Routine) {
+    const routine = new Routine(routineData.label, routineData.startDate, routineData.endDate, routineData.deleteWhenEnded);
+    if (routineData.id) routine.id = routineData.id
+    if (routineData.users) routine.users = routineData.users
+    if (routineData.routineWorkouts) routine.routineWorkouts = routineData.routineWorkouts
+
+    return routine;
+  }
+
   get http() {
     return {
       id: this.id,
@@ -39,7 +48,7 @@ const routineFormSchema = z.object({
   startDate: z.date(),
   endDate: z.date(),
   deleteWhenEnded: z.boolean().default(true),
-  type: z.enum(["DAILY","ORDER" ])
+  type: z.enum(["DAILY", "ORDER"])
 
   // users: z.object()
 })

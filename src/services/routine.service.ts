@@ -19,8 +19,14 @@ export class RoutineService extends AxiosService {
           return routine;
         })
       )
+  }
 
-    return ''
+  async getById( routineId: number ) {
+    return await this.get(`by-id/${routineId}`).then(data=> {
+      // console.log(data)
+
+      return data;
+    })
   }
 
   async getByUserId(userId: number) {
@@ -35,10 +41,12 @@ export class RoutineService extends AxiosService {
   }
 
   async create(routine: Routine) {
+    console.log(routine.http)
     return await this.post(routine.http);
   }
 
-  async setRoutineToUsed(routineId: number, userId: number) {
+  async setRoutineToUser(routineId: number, userId: number) {
     return await this.post({routineId, userId}, 'set-to-user');
   }
+  
 }

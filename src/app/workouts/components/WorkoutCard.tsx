@@ -1,7 +1,14 @@
-'use client'
+"use client";
 
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { DotsThreeOutlineVertical } from "@phosphor-icons/react";
 
 export function WorkoutCard(props: {
@@ -14,27 +21,25 @@ export function WorkoutCard(props: {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between items-center">
           <CardTitle className="text-2xl font-bold py-4 text-primary">
             Terça
           </CardTitle>
           <Button variant="ghost" className="p-0">
-            <DotsThreeOutlineVertical
-              size={32}
-              weight="duotone"
-              className="text-primary"
-            />
+            <Icons.Menu />
           </Button>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col">
-          <span className="text-sm">Costas e Peito</span>
-          <div className="flex gap-[4px] items-center">
-            <span className="text-lg">Ultima Execução:</span>
-            <span className="">12/12</span>
+        <CardDescription>
+          <div className="flex flex-col">
+            <span className="text-sm">Costas e Peito</span>
+            <div className="flex gap-[4px] items-center">
+              <span className="text-lg">Ultima Execução:</span>
+              <span className="">12/12</span>
+            </div>
           </div>
-        </div>
+        </CardDescription>
         <Button
           style={{ borderRadius: "12px" }}
           variant="outline"

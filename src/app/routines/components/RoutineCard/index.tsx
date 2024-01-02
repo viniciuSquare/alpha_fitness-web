@@ -1,67 +1,50 @@
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-
-import { addDays, format } from "date-fns";
-import { DateRange } from "react-day-picker";
-
 import Link from "next/link";
 
-import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Routine } from "@/models/routine.model";
+import { DateWithRange } from "@/components/DateWithRange";
+import { Icons } from "@/components/icons";
 
 export function RoutineCard(props: { routine: Routine }) {
   const { routine } = props;
+  
   return (
-    <Card>
+    <Card className="min-w-[320px]">
       <CardHeader>
-        <CardTitle>{routine.label}</CardTitle>
+        <div className="flex justify-between items-center gap-4">
+          <CardTitle className="text-2xl font-bold py-4 text-primary">
+            {routine.label}
+          </CardTitle>
+          <Button variant="ghost" className="p-0 opacity-75 hover:opacity-100">
+            <Icons.Menu />
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
-        <DatePickerWithRange
+        <DateWithRange
           from={routine.startDate}
           to={routine.endDate}
+          className="p-2 rounded-sm shadow-sm border bg-primary-foreground"
         />
         {/* { routine.routineWorkouts?.map( routineWorkout => {
           return <>{routineWorkout}</>
         }) } */}
-        <span className="text-muted-foreground">No workout on this routine</span>
+        <div className="my-2">
+          {routine.routineWorkouts ? (
+            <>Routine Workouts</>
+          ) : (
+            <span className="text-muted-foreground">
+              No workout on this routine
+            </span>
+          )}
+        </div>
         <Link href={`/routines/${routine.id}`}>
-          <Button className="w-full" variant='outline'>See Details</Button>
+          <Button className="w-full" variant="outline">
+            See Details
+          </Button>
         </Link>
       </CardContent>
     </Card>
-  )
-}
-
-
-export function DatePickerWithRange(props: {
-  className?: React.HTMLAttributes<HTMLDivElement>;
-  from?: Date;
-  to?: Date;
-}) {
-  const { className, from, to } = props;
-
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: from ? from : new Date(),
-    to: to ? to : addDays(new Date(), 20),
-  });
-
-  return (
-    <div 
-      className={cn(
-        "flex items center w-[300px] justify-start text-left font-normal p-2 rounded-sm shadow-sm border",
-        "bg-primary-foreground",
-        className
-      )}
-    >
-        <CalendarIcon className="mr-2 h-5 w-5" />
-        {date?.from && date?.to && (
-          <>
-            {format(date.from, "LLL dd")} - {format(date.to, "LLL dd, y")}
-          </>
-        )}
-    </div>
   );
 }

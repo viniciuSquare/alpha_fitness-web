@@ -1,7 +1,9 @@
+'use client'
 import { Exercise } from "@/models/exercise.model";
+import { ExerciseCard } from "./components/ExerciseCard";
 
 export default function ExercisesList() {
-  let exercise = new Exercise('Supino Reto', 'Chest', '1', '4', '12/10/8/8','REPETITION');
+  let exercise = new Exercise('Supino Reto', 'Chest', '60', '4', '12/10/8/8','REPETITION');
 
   return (
     <main>
@@ -18,31 +20,8 @@ export default function ExercisesList() {
 
         <span>Muscle Group: {exercise.group}</span>
 
-        <ExerciseItem exercise={exercise} />
+        <ExerciseCard exercise={exercise} />
       </div>
     </main>
-  );
-}
-
-function ExerciseItem(props: { exercise: Exercise }) {
-  const { exercise } = props;
-  return (
-    <div
-      id="exercise"
-      className="flex w-full gap-4 p-6 bg-gray-400 bg-opacity-60 rounded-lg"
-    >
-      <img src="images/exercises/supino.png"></img>
-      <div className="w-full flex flex-col justify-between">
-        <h2>{exercise.name}</h2>
-        <div className="flex justify-between">
-          <span>Descanso</span>
-          <span>{exercise.restTime}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Series</span>
-          <span>{exercise.series}</span>
-        </div>
-      </div>
-    </div>
   );
 }

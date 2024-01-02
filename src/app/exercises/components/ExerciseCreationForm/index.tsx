@@ -35,8 +35,8 @@ type ExerciseFormValues = z.infer<typeof Exercise.formSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ExerciseFormValues> = {
-  seriesSugestion: '3',
-  volumeSugestion: '12',
+  seriesSugestion: "3",
+  volumeSugestion: "12",
 };
 
 export function ExerciseForm() {
@@ -45,11 +45,6 @@ export function ExerciseForm() {
     defaultValues,
     mode: "onChange",
   });
-
-  // const { fields, append } = useFieldArray({
-  //   name: "urls",
-  //   control: form.control,
-  // })
 
   function onSubmit(data: ExerciseFormValues) {
     // toast({
@@ -88,7 +83,10 @@ export function ExerciseForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tipo de Execução</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select the execution type.." />
@@ -128,9 +126,11 @@ export function ExerciseForm() {
               control={form.control}
               name="volumeSugestion"
               render={({ field }) => (
-                <FormItem className="w-full" >
+                <FormItem className="w-full">
                   <FormLabel>
-                    {form.getValues().executionUnit == 'TIME' ? 'Execution Length' : 'Repetition' }
+                    {form.getValues().executionUnit == "TIME"
+                      ? "Execution Length"
+                      : "Repetition"}
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -151,9 +151,13 @@ export function ExerciseForm() {
               control={form.control}
               name="seriesSugestion"
               render={({ field }) => (
-                <FormItem className="w-full" >
+                <FormItem className="w-full">
                   <FormLabel>
-                    {`${form.getValues().executionUnit == 'TIME' ? 'Execution Length' : 'Repetitions'} ` }
+                    {`${
+                      form.getValues().executionUnit == "TIME"
+                        ? "Execution Length"
+                        : "Repetitions"
+                    } `}
                     Series
                   </FormLabel>
                   <FormControl>
@@ -172,38 +176,6 @@ export function ExerciseForm() {
               )}
             />
           </div>
-          {/* <div>
-            {fields.map((field, index) => (
-              <FormField
-                control={form.control}
-                key={field.id}
-                name={`urls.${index}.value`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={cn(index !== 0 && "sr-only")}>
-                      URLs
-                    </FormLabel>
-                    <FormDescription className={cn(index !== 0 && "sr-only")}>
-                      Add links to your website, blog, or social media exercises.
-                    </FormDescription>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="mt-2"
-              onClick={() => append({ value: "" })}
-            >
-              Add URL
-            </Button>
-          </div> */}
           <Button type="submit">Update exercise</Button>
         </form>
       </Form>

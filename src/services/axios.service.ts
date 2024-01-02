@@ -2,10 +2,13 @@ import axios, { AxiosInstance } from "axios";
 
 export class AxiosService {
   public axios: AxiosInstance;
+  public baseUrl: string;
   
   constructor(private resource: string) {
+    this.baseUrl = `http://localhost:3001/${this.resource}`;
+
     this.axios  = axios.create({
-      baseURL: `http://192.168.0.104:3001/${this.resource}`,
+      baseURL: this.baseUrl,
       headers: {
         "Content-type": "application/json"
       }
